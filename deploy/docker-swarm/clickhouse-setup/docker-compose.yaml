@@ -41,6 +41,8 @@ services:
       - "3888:3888"
     volumes:
       - ./data/zookeeper-1:/bitnami/zookeeper
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - ZOO_SERVER_ID=1
       # - ZOO_SERVERS=0.0.0.0:2888:3888,zookeeper-2:2888:3888,zookeeper-3:2888:3888
@@ -90,6 +92,8 @@ services:
       - ./clickhouse-cluster.xml:/etc/clickhouse-server/config.d/cluster.xml
       # - ./clickhouse-storage.xml:/etc/clickhouse-server/config.d/storage.xml
       - ./data/clickhouse/:/var/lib/clickhouse/
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
   # clickhouse-2:
   #   <<: *clickhouse-defaults
   #   hostname: clickhouse-2
@@ -121,6 +125,8 @@ services:
     image: signoz/alertmanager:0.23.7
     volumes:
       - ./data/alertmanager:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     command:
       - --queryService.url=http://query-service:8085
       - --storage.path=/data
@@ -139,6 +145,8 @@ services:
       - ./prometheus.yml:/root/config/prometheus.yml
       - ../dashboards:/root/config/dashboards
       - ./data/signoz/:/var/lib/signoz/
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - ClickHouseUrl=tcp://clickhouse:9000
       - ALERTMANAGER_API_PREFIX=http://alertmanager:9093/api/
@@ -169,6 +177,8 @@ services:
       - "3301:3301"
     volumes:
       - ../common/nginx-config.conf:/etc/nginx/conf.d/default.conf
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
   otel-collector:
     image: signoz/signoz-otel-collector:0.111.21
     command: ["--config=/etc/otel-collector-config.yaml", "--manager-config=/etc/manager-config.yaml", "--feature-gates=-pkg.translator.prometheus.NormalizeName"]
@@ -177,6 +187,8 @@ services:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
       - ./otel-collector-opamp-config.yaml:/etc/manager-config.yaml
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
       - /:/hostfs:ro
     environment:
       - OTEL_RESOURCE_ATTRIBUTES=host.name={{.Node.Hostname}},os.type={{.Node.Platform.OS}},dockerswarm.service.name={{.Service.Name}},dockerswarm.task.name={{.Task.Name}}
@@ -220,6 +232,8 @@ services:
     volumes:
       - /etc/hostname:/etc/host_hostname:ro
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     command: syslog+tcp://otel-collector:2255
     depends_on:
       - otel-collector
@@ -249,3 +263,5 @@ services:
       LOCUST_OPTS: "--headless -u 10 -r 1"
     volumes:
       - ../common/locust-scripts:/locust
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro

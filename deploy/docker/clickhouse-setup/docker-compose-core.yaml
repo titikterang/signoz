@@ -13,6 +13,8 @@ services:
       - "3888:3888"
     volumes:
       - ./data/zookeeper-1:/bitnami/zookeeper
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - ZOO_SERVER_ID=1
       # - ZOO_SERVERS=0.0.0.0:2888:3888,zookeeper-2:2888:3888,zookeeper-3:2888:3888
@@ -33,6 +35,8 @@ services:
       # - ./clickhouse-storage.xml:/etc/clickhouse-server/config.d/storage.xml
       - ./data/clickhouse/:/var/lib/clickhouse/
       - ./user_scripts:/var/lib/clickhouse/user_scripts/
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     restart: on-failure
     logging:
       options:
@@ -49,6 +53,8 @@ services:
     image: signoz/alertmanager:0.23.7
     volumes:
       - ./data/alertmanager:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     depends_on:
       query-service:
         condition: service_healthy
@@ -81,6 +87,8 @@ services:
       - ./otel-collector-opamp-config.yaml:/etc/manager-config.yaml
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /:/hostfs:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - OTEL_RESOURCE_ATTRIBUTES=host.name=signoz-host,os.type=linux
     ports:
@@ -109,6 +117,8 @@ services:
     volumes:
       - /etc/hostname:/etc/host_hostname:ro
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     command: syslog+tcp://otel-collector:2255
     depends_on:
       - otel-collector

@@ -4,7 +4,7 @@
   "label_password": "Password",
   "button_initiate_login": "Next",
   "button_login": "Login",
-  "login_page_title": "Login with SigNoz",
+  "login_page_title": "Please Login",
   "login_with_sso": "Login with SSO",
   "login_with_pwd": "Login with password",
   "forgot_password": "Forgot password?",

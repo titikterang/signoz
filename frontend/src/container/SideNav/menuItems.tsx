@@ -35,36 +35,36 @@ export const inviteMemberMenuItem = {
 	label: 'Invite Team Member',
 	icon: <UserPlus size={16} />,
 };
-
-export const manageLicenseMenuItem = {
-	key: ROUTES.LIST_LICENSES,
-	label: 'Manage Licenses',
-	icon: <FileKey2 size={16} />,
-};
+//
+// export const manageLicenseMenuItem = {
+// 	key: ROUTES.LIST_LICENSES,
+// 	label: 'Manage Licenses',
+// 	icon: <FileKey2 size={16} />,
+// };
 
 export const helpSupportMenuItem = {
 	key: ROUTES.SUPPORT,
 	label: 'Help & Support',
 	icon: <MessageSquare size={16} />,
 };
-
-export const shortcutMenuItem = {
-	key: ROUTES.SHORTCUTS,
-	label: 'Keyboard Shortcuts',
-	icon: <Layers2 size={16} />,
-};
-
-export const slackSupportMenuItem = {
-	key: SecondaryMenuItemKey.Slack,
-	label: 'Slack Support',
-	icon: <Slack size={16} />,
-};
-
-export const trySignozCloudMenuItem: SidebarItem = {
-	key: 'trySignozCloud',
-	label: 'Try Signoz Cloud',
-	icon: <Cloudy size={16} />,
-};
+//
+// export const shortcutMenuItem = {
+// 	key: ROUTES.SHORTCUTS,
+// 	label: 'Keyboard Shortcuts',
+// 	icon: <Layers2 size={16} />,
+// };
+//
+// export const slackSupportMenuItem = {
+// 	key: SecondaryMenuItemKey.Slack,
+// 	label: 'Slack Support',
+// 	icon: <Slack size={16} />,
+// };
+//
+// export const trySignozCloudMenuItem: SidebarItem = {
+// 	key: 'trySignozCloud',
+// 	label: 'Try Signoz Cloud',
+// 	icon: <Cloudy size={16} />,
+// };
 
 const menuItems: SidebarItem[] = [
 	{
